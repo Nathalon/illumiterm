@@ -1,0 +1,25 @@
+# Ignore compiled object files and executables
+*.o
+*.out
+*.exe
+
+# Ignore generated files
+/autom4te.cache/
+/Makefile
+/aclocal.m4
+/config.log
+/config.status
+/configure
+
+# Ignore backup files
+*~
+
+# Ignore build artifacts
+/bin/
+/build/
+
+# Ignore gettext files
+/po/*.mo
+
+# Ignore ZIP archive
+/illumiterm-main.zip
