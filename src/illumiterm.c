@@ -284,7 +284,7 @@ static void CloseWindow(GtkMenuItem *menuitem, gpointer user_data) {
     exit(0);
 }
 
-GtkWidget* CreateMenuItem1(const gchar* iconPath, const gchar* label, const gchar* shortcut, GCallback callback) {
+GtkWidget* FileMenuHelper(const gchar* iconPath, const gchar* label, const gchar* shortcut, GCallback callback) {
     GtkWidget* box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_widget_set_hexpand(box, TRUE);
 
@@ -316,18 +316,18 @@ GtkWidget* CreateMenuItem1(const gchar* iconPath, const gchar* label, const gcha
 GtkWidget* FileMenu() {
     GtkWidget* file_menu = gtk_menu_new();
 
-    GtkWidget* new_window_item = CreateMenuItem1("/usr/share/icons/hicolor/24x24/apps/window-new.svg", "New Window", "Shift+Ctrl+N", G_CALLBACK(NewWindow));
+    GtkWidget* new_window_item = FileMenuHelper("/usr/share/icons/hicolor/24x24/apps/window-new.svg", "New Window", "Shift+Ctrl+N", G_CALLBACK(NewWindow));
     gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), new_window_item);
 
-    GtkWidget* new_tab_item = CreateMenuItem1("/usr/share/icons/hicolor/24x24/apps/tab-new.svg", "New Tab", "Shift+Ctrl+T", G_CALLBACK(NewTab));
+    GtkWidget* new_tab_item = FileMenuHelper("/usr/share/icons/hicolor/24x24/apps/tab-new.svg", "New Tab", "Shift+Ctrl+T", G_CALLBACK(NewTab));
     gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), new_tab_item);
 
     gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), gtk_separator_menu_item_new());
 
-    GtkWidget* close_tab_item = CreateMenuItem1("/usr/share/icons/hicolor/24x24/apps/tab-close.svg", "Close Tab", "Shift+Ctrl+W", G_CALLBACK(CloseTab));
+    GtkWidget* close_tab_item = FileMenuHelper("/usr/share/icons/hicolor/24x24/apps/tab-close.svg", "Close Tab", "Shift+Ctrl+W", G_CALLBACK(CloseTab));
     gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), close_tab_item);
 
-    GtkWidget* close_window_item = CreateMenuItem1("/usr/share/icons/hicolor/24x24/apps/window-close.svg", "Close Window", "Shift+Ctrl+Q", G_CALLBACK(CloseWindow));
+    GtkWidget* close_window_item = FileMenuHelper("/usr/share/icons/hicolor/24x24/apps/window-close.svg", "Close Window", "Shift+Ctrl+Q", G_CALLBACK(CloseWindow));
     gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), close_window_item);
 
     gtk_widget_show_all(file_menu);
@@ -797,7 +797,7 @@ static void Preferences(GtkMenuItem *menu_item, gpointer user_data)
     gtk_widget_show_all(window);
 }
 
-GtkWidget* CreateMenuItem2(const gchar* iconPath, const gchar* label, const gchar* shortcut, GCallback callback) {
+GtkWidget* EditMenuHelper(const gchar* iconPath, const gchar* label, const gchar* shortcut, GCallback callback) {
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_widget_set_hexpand(box, TRUE);
     
@@ -828,34 +828,34 @@ GtkWidget* CreateMenuItem2(const gchar* iconPath, const gchar* label, const gcha
 GtkWidget* EditMenu() {
     GtkWidget *edit_menu = gtk_menu_new();
 
-    GtkWidget *copy_item = CreateMenuItem2("/usr/share/icons/hicolor/24x24/apps/edit-copy.svg", "Copy", "Shift+Ctrl+C", G_CALLBACK(Copy));
+    GtkWidget *copy_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/edit-copy.svg", "Copy", "Shift+Ctrl+C", G_CALLBACK(Copy));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), copy_item);
 
-    GtkWidget *paste_item = CreateMenuItem2("/usr/share/icons/hicolor/24x24/apps/edit-paste.svg", "Paste", "Shift+Ctrl+V", G_CALLBACK(Paste));
+    GtkWidget *paste_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/edit-paste.svg", "Paste", "Shift+Ctrl+V", G_CALLBACK(Paste));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), paste_item);
 
     GtkWidget *separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), separator);
 
-    GtkWidget *clear_scrollback_item = CreateMenuItem2("/usr/share/icons/hicolor/24x24/apps/edit-clear.svg", "Clear Scrollback", "", G_CALLBACK(ClearScrollback));
+    GtkWidget *clear_scrollback_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/edit-clear.svg", "Clear Scrollback", "", G_CALLBACK(ClearScrollback));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), clear_scrollback_item);
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), separator);
 
-    GtkWidget *zoom_in_item = CreateMenuItem2("/usr/share/icons/hicolor/24x24/apps/zoom-in.svg", "Zoom In", "Shift+Ctrl++", G_CALLBACK(ZoomIn));
+    GtkWidget *zoom_in_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/zoom-in.svg", "Zoom In", "Shift+Ctrl++", G_CALLBACK(ZoomIn));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), zoom_in_item);
 
-    GtkWidget *zoom_out_item = CreateMenuItem2("/usr/share/icons/hicolor/24x24/apps/zoom-out.svg", "Zoom Out", "Shift+Ctrl+_", G_CALLBACK(ZoomOut));
+    GtkWidget *zoom_out_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/zoom-out.svg", "Zoom Out", "Shift+Ctrl+_", G_CALLBACK(ZoomOut));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), zoom_out_item);
 
-    GtkWidget *reset_item = CreateMenuItem2("/usr/share/icons/hicolor/24x24/apps/zoom-original.svg", "Reset", "Shift+Ctrl+0", G_CALLBACK(ZoomReset));
+    GtkWidget *reset_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/zoom-original.svg", "Reset", "Shift+Ctrl+0", G_CALLBACK(ZoomReset));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), reset_item);
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), separator);
 
-    GtkWidget *preferences_item = CreateMenuItem2("/usr/share/icons/hicolor/24x24/apps/configure.svg", "Preferences", "", G_CALLBACK(Preferences));
+    GtkWidget *preferences_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/configure.svg", "Preferences", "", G_CALLBACK(Preferences));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), preferences_item);
 
     gtk_widget_show_all(copy_item);
@@ -863,7 +863,7 @@ GtkWidget* EditMenu() {
     return edit_menu;
 }
 
-GtkWidget* CreateMenuItem3(const gchar *icon_path, const gchar *label_text, const gchar *shortcut_text, GCallback callback) {
+GtkWidget* TabsMenuHelper(const gchar *icon_path, const gchar *label_text, const gchar *shortcut_text, GCallback callback) {
     GtkWidget *menu_item = gtk_menu_item_new();
 
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
@@ -897,25 +897,25 @@ GtkWidget* TabsMenu() {
     GtkWidget *separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), separator);
 
-    GtkWidget *name_tab = CreateMenuItem3("/usr/share/icons/hicolor/24x24/apps/edit.svg", "Name Tab", "Shift+Ctrl+I", G_CALLBACK(NameTab));
+    GtkWidget *name_tab = TabsMenuHelper("/usr/share/icons/hicolor/24x24/apps/edit.svg", "Name Tab", "Shift+Ctrl+I", G_CALLBACK(NameTab));
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), name_tab);
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), separator);
 
-    GtkWidget *previous_tab = CreateMenuItem3("/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Previous Tab", "Ctrl+Page Up", G_CALLBACK(PreviousTab));
+    GtkWidget *previous_tab = TabsMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Previous Tab", "Ctrl+Page Up", G_CALLBACK(PreviousTab));
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), previous_tab);
 
-    GtkWidget *next_tab = CreateMenuItem3("/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Next Tab", "Ctrl+Page Down", G_CALLBACK(NextTab));
+    GtkWidget *next_tab = TabsMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Next Tab", "Ctrl+Page Down", G_CALLBACK(NextTab));
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), next_tab);
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), separator);
 
-    GtkWidget *move_tab_left = CreateMenuItem3("/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Move Tab Left", "Shift+Ctrl+Page Up", G_CALLBACK(MoveTabLeft));
+    GtkWidget *move_tab_left = TabsMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Move Tab Left", "Shift+Ctrl+Page Up", G_CALLBACK(MoveTabLeft));
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), move_tab_left);
 
-    GtkWidget *move_tab_right = CreateMenuItem3("/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Move Tab Right", "Shift+Ctrl+Page Down", G_CALLBACK(MoveTabRight));
+    GtkWidget *move_tab_right = TabsMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Move Tab Right", "Shift+Ctrl+Page Down", G_CALLBACK(MoveTabRight));
     gtk_menu_shell_append(GTK_MENU_SHELL(tabs_menu), move_tab_right);
 
     return tabs_menu;
