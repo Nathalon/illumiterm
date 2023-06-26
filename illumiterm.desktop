@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=IllumiTerm
+Exec=/usr/local/bin/illumiterm
+Icon=/usr/share/icons/hicolor/48x48/apps/illumiterm.png
+Terminal=false
+Type=Application
+Categories=Utility;Development;
+StartupNotify=true
