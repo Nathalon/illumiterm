@@ -143,7 +143,7 @@ static gboolean ConfirmExit(GtkWidget* widget, GdkEvent* event, gpointer data) {
     return (response == GTK_RESPONSE_NO) ? TRUE : FALSE;
 }
 
-GtkWidget* CreateMenuItem(GtkWidget* menu, const gchar* imagePath, const gchar* labelText, GCallback callback) {
+GtkWidget* ContextMenuHelper(GtkWidget* menu, const gchar* imagePath, const gchar* labelText, GCallback callback) {
     GtkWidget *item, *box, *icon, *label;
 
     item = gtk_menu_item_new();
@@ -163,33 +163,33 @@ GtkWidget* ContextMenu() {
     GtkWidget *menu = gtk_menu_new();
     GtkWidget *separator;
 
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/window-new.svg", "New Window", G_CALLBACK(NewWindow));
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/tab-new.svg", "New Tab", G_CALLBACK(NewTab));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/window-new.svg", "New Window", G_CALLBACK(NewWindow));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/tab-new.svg", "New Tab", G_CALLBACK(NewTab));
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
 
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/edit-copy.svg", "Copy", G_CALLBACK(Copy));
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/edit-paste.svg", "Paste", G_CALLBACK(Paste));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/edit-copy.svg", "Copy", G_CALLBACK(Copy));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/edit-paste.svg", "Paste", G_CALLBACK(Paste));
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
 
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/edit-clear.svg", "Clear Scrollback", G_CALLBACK(ClearScrollback));
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/edit.svg", "Name Tab", G_CALLBACK(NameTab));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/edit-clear.svg", "Clear Scrollback", G_CALLBACK(ClearScrollback));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/edit.svg", "Name Tab", G_CALLBACK(NameTab));
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
 
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Previous Tab", G_CALLBACK(PreviousTab));
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Next Tab", G_CALLBACK(NextTab));
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Move Tab Left", G_CALLBACK(MoveTabLeft));
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Move Tab Right", G_CALLBACK(MoveTabRight));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Previous Tab", G_CALLBACK(PreviousTab));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Next Tab", G_CALLBACK(NextTab));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Move Tab Left", G_CALLBACK(MoveTabLeft));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Move Tab Right", G_CALLBACK(MoveTabRight));
 
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
 
-    CreateMenuItem(menu, "/usr/share/icons/hicolor/24x24/apps/window-close.svg", "Close Tab", G_CALLBACK(CloseTab));
+    ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/window-close.svg", "Close Tab", G_CALLBACK(CloseTab));
 
     gtk_widget_show_all(menu);
 
