@@ -179,6 +179,10 @@ GtkWidget* ContextMenu() {
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
 
     ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/edit-clear.svg", "Clear Scrollback", G_CALLBACK(ClearScrollback));
+    
+    separator = gtk_separator_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), separator);
+    
     ContextMenuHelper(menu, "/usr/share/icons/hicolor/24x24/apps/edit.svg", "Name Tab", G_CALLBACK(NameTab));
 
     separator = gtk_separator_menu_item_new();
