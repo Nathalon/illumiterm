@@ -142,15 +142,18 @@ static gboolean ConfirmExit(GtkWidget* widget, GdkEvent* event, gpointer data) {
 
     return (response == GTK_RESPONSE_NO) ? TRUE : FALSE;
 }
-
 GtkWidget* ContextMenuHelper(GtkWidget* menu, const gchar* imagePath, const gchar* labelText, GCallback callback) {
     GtkWidget *item, *box, *icon, *label;
-
+    
     item = gtk_menu_item_new();
     box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
     icon = gtk_image_new_from_file(imagePath);
     label = gtk_label_new(labelText);
+    
+    GtkWidget* spacing = gtk_label_new("  ");
+    
     gtk_box_pack_start(GTK_BOX(box), icon, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(box), spacing, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(box), label, FALSE, FALSE, 0);
     gtk_container_add(GTK_CONTAINER(item), box);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
