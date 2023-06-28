@@ -28,8 +28,7 @@ install-data-local:
 	echo 'echo "To run a command as administrator (user \"root\"), use \"sudo <command>\"."' >> ~/.bashrc
 	echo 'echo "See \"man sudo_root\" for details."' >> ~/.bashrc
 	echo 'echo' >> ~/.bashrc
-	touch /etc/sudoers.d/privacy
-	echo 'Defaults        lecture = always' | tee -a /etc/sudoers.d/privacy > /dev/null
+	touch /etc/sudoers.d/privacy && echo 'Defaults        lecture = always' | tee -a /etc/sudoers.d/privacy > /dev/null
 	$(INSTALL_DATA) $(top_srcdir)/illumiterm.desktop $(DESTDIR)/usr/share/applications/
 	chmod 644 $(DESTDIR)/usr/share/applications/illumiterm.desktop
 	$(INSTALL_DATA) $(top_srcdir)/icons/illumiterm.png $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/illumiterm.png
