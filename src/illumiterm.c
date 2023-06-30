@@ -92,7 +92,51 @@ static void ClearScrollback(GtkMenuItem *menuitem, gpointer user_data) {
 }
 
 static void NameTab(GtkMenuItem *menuitem, gpointer user_data) {
-    g_print("NameTab\n");
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("Name Tab", NULL, GTK_DIALOG_MODAL, "Cancel", GTK_RESPONSE_CANCEL, "OK", GTK_RESPONSE_OK, NULL);
+
+    GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+
+    GtkWidget *entry = gtk_entry_new();
+    gtk_entry_set_max_length(GTK_ENTRY(entry), 50);
+    gtk_widget_show(entry);
+
+    gchar *username = getlogin();
+    if (username != NULL) {
+        gchar hostname[1024];
+        gethostname(hostname, sizeof(hostname));
+        gchar *user_host = g_strdup_printf("%s@%s", username, hostname);
+        gtk_entry_set_text(GTK_ENTRY(entry), user_host);
+        g_free(user_host);
+    } else {
+        gtk_entry_set_text(GTK_ENTRY(entry), "Default Title");
+    }
+
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        const gchar *home_dir = g_get_home_dir();
+        gchar *user_dir = cwd;
+        if (g_str_has_prefix(cwd, home_dir)) {
+            gchar *relative_path = g_strdup_printf("~%s", cwd + strlen(home_dir));
+            gchar *title_text = g_strdup_printf("%s:%s", gtk_entry_get_text(GTK_ENTRY(entry)), relative_path);
+            gtk_entry_set_text(GTK_ENTRY(entry), title_text);
+            g_free(relative_path);
+            g_free(title_text);
+        } else {
+            gchar *title_text = g_strdup_printf("%s:%s", gtk_entry_get_text(GTK_ENTRY(entry)), cwd);
+            gtk_entry_set_text(GTK_ENTRY(entry), title_text);
+            g_free(title_text);
+        }
+    }
+
+    gtk_container_add(GTK_CONTAINER(content_area), entry);
+
+    gint result = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (result == GTK_RESPONSE_OK) {
+        const gchar *name = gtk_entry_get_text(GTK_ENTRY(entry));
+        gtk_window_set_title(GTK_WINDOW(dialog), name);
+    }
+
+    gtk_widget_destroy(dialog);
 }
 
 static void PreviousTab(GtkMenuItem *menuitem, gpointer user_data) {
