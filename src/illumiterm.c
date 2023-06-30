@@ -806,6 +806,10 @@ static void ShortcutsTab(GtkNotebook *notebook) {
     gtk_notebook_append_page(notebook, shortcuts_grid, shortcuts_tab);
 }
 
+static void OkButton(GtkButton *button, gpointer user_data) {
+    g_print("OK button clicked!\n");
+}
+
 static void Preferences(GtkMenuItem *menu_item, gpointer user_data)
 {
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -844,9 +848,11 @@ static void Preferences(GtkMenuItem *menu_item, gpointer user_data)
     GtkWidget *ok_button = gtk_button_new_with_label("OK");
     gtk_container_add(GTK_CONTAINER(buttons_box), ok_button);
     gtk_container_add(GTK_CONTAINER(button_box), buttons_box);
+    g_signal_connect(ok_button, "clicked", G_CALLBACK(OkButton), NULL);
 
     gtk_widget_show_all(window);
 }
+
 
 GtkWidget* EditMenuHelper(const gchar* iconPath, const gchar* label, const gchar* shortcut, GCallback callback) {
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
