@@ -186,6 +186,7 @@ static gboolean ConfirmExit(GtkWidget* widget, GdkEvent* event, gpointer data) {
 
     return (response == GTK_RESPONSE_NO) ? TRUE : FALSE;
 }
+
 GtkWidget* ContextMenuHelper(GtkWidget* menu, const gchar* imagePath, const gchar* labelText, GCallback callback) {
     GtkWidget *item, *box, *icon, *label;
     
