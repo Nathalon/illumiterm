@@ -1149,4 +1149,4 @@ int main(int argc, char **argv) {
     return status;
 }
 
-// gcc -O2 -Wall $(pkg-config --cflags vte-2.91) $(pkg-config --cflags gtk+-3.0) illumiterm.c -o illumiterm $(pkg-config --libs vte-2.91) 
+// gcc -O2 -Wall $(pkg-config --cflags vte-2.91) $(pkg-config --cflags gtk+-3.0) illumiterm.c -o illumiterm $(pkg-config --libs vte-2.91) $(pkg-config --libs gtk+-3.0)
