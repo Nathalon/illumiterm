@@ -63,8 +63,6 @@ static gboolean ChildExited(VteTerminal* term, gint status, gpointer data) {
 }
 
 static void NewWindow(GtkMenuItem *menuitem, gpointer user_data) {
-    GtkWidget *main_window = GTK_WIDGET(user_data);
-
     GError *error = NULL;
     gchar *argv[] = {"illumiterm", NULL};
 
@@ -114,7 +112,6 @@ static void NameTab(GtkMenuItem *menuitem, gpointer user_data) {
     char cwd[1024];
     if (getcwd(cwd, sizeof(cwd)) != NULL) {
         const gchar *home_dir = g_get_home_dir();
-        gchar *user_dir = cwd;
         if (g_str_has_prefix(cwd, home_dir)) {
             gchar *relative_path = g_strdup_printf("~%s", cwd + strlen(home_dir));
             gchar *title_text = g_strdup_printf("%s:%s", gtk_entry_get_text(GTK_ENTRY(entry)), relative_path);
@@ -1151,3 +1148,5 @@ int main(int argc, char **argv) {
 
     return status;
 }
+
+// gcc -O2 -Wall $(pkg-config --cflags vte-2.91) $(pkg-config --cflags gtk+-3.0) illumiterm.c -o illumiterm $(pkg-config --libs vte-2.91) 
