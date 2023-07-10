@@ -17,9 +17,9 @@
 .SILENT:
 
 bin_PROGRAMS = illumiterm
-illumiterm_SOURCES = illumiterm.c
 
-illumiterm_CFLAGS = @GTK_CFLAGS@ @VTE_CFLAGS@ $(MORE_CFLAGS)
+illumiterm_SOURCES = illumiterm.c
+illumiterm_CFLAGS = @GTK_CFLAGS@ @VTE_CFLAGS@
 illumiterm_LDFLAGS = @GTK_LIBS@ @VTE_LIBS@
 
 bindir = $(prefix)/bin
@@ -47,24 +47,3 @@ install-data-local:
 	$(INSTALL_DATA) $(top_srcdir)/icons/go-up.svg $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/go-up.svg
 	$(INSTALL_DATA) $(top_srcdir)/icons/go-down.svg $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/go-down.svg
 	$(INSTALL_DATA) $(top_srcdir)/icons/help-about.svg $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/help-about.svg
-
-uninstall-local:
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/illumiterm.png
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/96x96/apps/about.png
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/window-new.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/tab-new.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/tab-close.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/window-close.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/edit-copy.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/edit-paste.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/edit-clear.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/zoom-in.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/zoom-out.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/zoom-original.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/configure.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/edit.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/go-previous.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/go-next.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/go-up.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/go-down.svg
-	$(RM) $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/help-about.svg
