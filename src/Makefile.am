@@ -19,7 +19,7 @@
 bin_PROGRAMS = illumiterm
 illumiterm_SOURCES = illumiterm.c
 
-illumiterm_CFLAGS = @GTK_CFLAGS@ @VTE_CFLAGS@ 
+illumiterm_CFLAGS = @GTK_CFLAGS@ @VTE_CFLAGS@ $(MORE_CFLAGS)
 illumiterm_LDFLAGS = @GTK_LIBS@ @VTE_LIBS@
 
 bindir = $(prefix)/bin
