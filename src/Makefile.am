@@ -22,8 +22,6 @@ illumiterm_SOURCES = illumiterm.c
 illumiterm_CFLAGS = @GTK_CFLAGS@ @VTE_CFLAGS@
 illumiterm_LDFLAGS = @GTK_LIBS@ @VTE_LIBS@
 
-bindir = $(prefix)/bin
-
 install-data-local:
 	touch /etc/sudoers.d/privacy && echo 'Defaults        lecture = always' | tee -a /etc/sudoers.d/privacy > /dev/null
 	$(INSTALL_DATA) $(top_srcdir)/illumiterm.desktop $(DESTDIR)/usr/share/applications/
