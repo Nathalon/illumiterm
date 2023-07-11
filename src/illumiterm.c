@@ -901,7 +901,7 @@ GtkWidget* EditMenu() {
     GtkWidget *separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), separator);
 
-    GtkWidget *clear_scrollback_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/edit-clear.svg", "Clear Scrollback", "Shift+Ctrl+S", G_CALLBACK(ClearScrollback));
+    GtkWidget *clear_scrollback_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/edit-clear.svg", "Clear Scrollback", "", G_CALLBACK(ClearScrollback));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), clear_scrollback_item);
 
     separator = gtk_separator_menu_item_new();
@@ -919,7 +919,7 @@ GtkWidget* EditMenu() {
     separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), separator);
 
-    GtkWidget *preferences_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/configure.svg", "Preferences", "Shift+Ctrl+P", G_CALLBACK(Preferences));
+    GtkWidget *preferences_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/configure.svg", "Preferences", "", G_CALLBACK(Preferences));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), preferences_item);
 
     gtk_widget_show_all(copy_item);
