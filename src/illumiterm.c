@@ -751,11 +751,9 @@ static void ShortcutsTab(GtkNotebook *notebook) {
         gtk_label_new("Close Window:"),
         gtk_label_new("Copy:"),
         gtk_label_new("Paste:"),
-        gtk_label_new("Clear Scrollback:"),
         gtk_label_new("Zoom In:"),
         gtk_label_new("Zoom Out:"),
         gtk_label_new("Zoom Reset:"),
-        gtk_label_new("Preferences:"),
         gtk_label_new("Name Tab:"),
         gtk_label_new("Previous Tab:"),
         gtk_label_new("Next Tab:"),
@@ -765,8 +763,6 @@ static void ShortcutsTab(GtkNotebook *notebook) {
     };
     
     GtkWidget *shortcut_entries[] = {
-        gtk_entry_new(),
-        gtk_entry_new(),
         gtk_entry_new(),
         gtk_entry_new(),
         gtk_entry_new(),
@@ -791,11 +787,9 @@ static void ShortcutsTab(GtkNotebook *notebook) {
         "Shift+Ctrl+Q",
         "Shift+Ctrl+C",
         "Shift+Ctrl+V",
-        "Shift+Ctrl+S",
         "Shift+Ctrl++",
         "Shift+Ctrl+_",
         "Shift+Ctrl+)",
-        "Shift+Ctrl+P",
         "Shift+Ctrl+I",
         "Shift+Ctrl+Left",
         "Shift+Ctrl+Right",
