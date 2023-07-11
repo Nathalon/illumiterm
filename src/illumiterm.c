@@ -913,7 +913,7 @@ GtkWidget* EditMenu() {
     GtkWidget *zoom_out_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/zoom-out.svg", "Zoom Out", "Shift+Ctrl+_", G_CALLBACK(ZoomOut));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), zoom_out_item);
 
-    GtkWidget *reset_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/zoom-original.svg", "Reset", "Shift+Ctrl+)", G_CALLBACK(ZoomReset));
+    GtkWidget *reset_item = EditMenuHelper("/usr/share/icons/hicolor/24x24/apps/zoom-original.svg", "Zoom Reset", "Shift+Ctrl+)", G_CALLBACK(ZoomReset));
     gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), reset_item);
 
     separator = gtk_separator_menu_item_new();
