@@ -734,6 +734,7 @@ void AdvancedTab(GtkNotebook *notebook) {
     gtk_notebook_append_page(notebook, advanced_grid, advanced_tab);
 }
 
+
 void ShortcutsTab(GtkNotebook *notebook) {
     GtkWidget *shortcuts_tab = gtk_label_new("Shortcuts");
 
@@ -758,17 +759,10 @@ void ShortcutsTab(GtkNotebook *notebook) {
         gtk_label_new("Next Tab:"),
         gtk_label_new("Move Tab Left:"),
         gtk_label_new("Move Tab Right:"),
-        gtk_label_new("Move Window Left:"),
-        gtk_label_new("Move Window Right:"),
-        gtk_label_new("Enter Fullscreen:"),
-        gtk_label_new("Reset Window Position:"),
+        
     };
     
     GtkWidget *shortcut_entries[] = {
-        gtk_entry_new(),
-        gtk_entry_new(),
-        gtk_entry_new(),
-        gtk_entry_new(),
         gtk_entry_new(),
         gtk_entry_new(),
         gtk_entry_new(),
@@ -801,10 +795,6 @@ void ShortcutsTab(GtkNotebook *notebook) {
         "Shift+Ctrl+Right",
         "Shift+Ctrl+Page Up",
         "Shift+Ctrl+Page Down",
-        "Super+Left",
-        "Super+Right",
-        "Super+Page Up",
-        "Super+Page Down",
 
     };
 
@@ -863,6 +853,7 @@ void Preferences(GtkMenuItem *menu_item, gpointer user_data)
 
     gtk_widget_show_all(window);
 }
+
 
 GtkWidget* EditMenuHelper(const gchar* iconPath, const gchar* label, const gchar* shortcut, GCallback callback) {
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
@@ -987,7 +978,6 @@ GtkWidget* TabsMenu() {
 
     return tabs_menu;
 }
-
 GtkWidget* PositionMenuHelper(const gchar *icon_path, const gchar *label_text, const gchar *shortcut_text, GCallback callback) {
     GtkWidget *menu_item = gtk_menu_item_new();
 
@@ -1015,23 +1005,35 @@ GtkWidget* PositionMenuHelper(const gchar *icon_path, const gchar *label_text, c
 
     return menu_item;
 }
+void MoveWindowLeft(void) {
+    g_print("MoveWindowLeft\n");
+}
+void MoveWindowRight(void) {
+    g_print("MoveWindowRight\n");
+}
+void EnterFullscreen(void) {
+    g_print("EnterFullscreen\n");
+}
+void ResetWindowPosition(void) {
+    g_print("ResetWindowPosition\n");
+}
 
 GtkWidget* PositionMenu() {
     GtkWidget *position_menu = gtk_menu_new();
 
-    GtkWidget *previous_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Move Window Left", "Super+Left", G_CALLBACK(PreviousTab));
+    GtkWidget *previous_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Move Window Left", "Super+Left", G_CALLBACK(MoveWindowLeft));
     gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), previous_tab);
 
-    GtkWidget *next_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Move Window Right", "Super+Right", G_CALLBACK(NextTab));
+    GtkWidget *next_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Move Window Right", "Super+Right", G_CALLBACK(MoveWindowRight));
     gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), next_tab);
     
     GtkWidget *separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), separator);
 
-    GtkWidget *move_tab_left = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Enter Fullscreen ", "Super+Page Up", G_CALLBACK(MoveTabLeft));
+    GtkWidget *move_tab_left = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Enter Fullscreen ", "Super+Page Up", G_CALLBACK(EnterFullscreen));
     gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_tab_left);
 
-    GtkWidget *move_tab_right = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Reset Window Position", "Super+Page Down", G_CALLBACK(MoveTabRight));
+    GtkWidget *move_tab_right = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Reset Window Position", "Super+Page Down", G_CALLBACK(ResetWindowPosition));
     gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_tab_right);
 
     return position_menu;
