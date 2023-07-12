@@ -1005,15 +1005,19 @@ GtkWidget* PositionMenuHelper(const gchar *icon_path, const gchar *label_text, c
 
     return menu_item;
 }
+
 void MoveWindowLeft(void) {
     g_print("MoveWindowLeft\n");
 }
+
 void MoveWindowRight(void) {
     g_print("MoveWindowRight\n");
 }
+
 void EnterFullscreen(void) {
     g_print("EnterFullscreen\n");
 }
+
 void ResetWindowPosition(void) {
     g_print("ResetWindowPosition\n");
 }
@@ -1128,7 +1132,6 @@ GtkWidget* CreateMenu() {
     GtkWidget *tabs_menu = TabsMenu();
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(tabs_menu_item), tabs_menu);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), tabs_menu_item);
-
 
     GtkWidget *position_menu_item = gtk_menu_item_new_with_label("Position");
     GtkWidget *position_menu = PositionMenu();
