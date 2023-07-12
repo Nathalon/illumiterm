@@ -1034,20 +1034,20 @@ void ResetWindowPosition(void) {
 GtkWidget* PositionMenu() {
     GtkWidget *position_menu = gtk_menu_new();
 
-    GtkWidget *previous_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Move Window Left", "Super+Left", G_CALLBACK(MoveWindowLeft));
-    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), previous_tab);
+    GtkWidget *move_window_left = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Move Window Left", "Super+Left", G_CALLBACK(MoveWindowLeft));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_window_left);
 
-    GtkWidget *next_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Move Window Right", "Super+Right", G_CALLBACK(MoveWindowRight));
-    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), next_tab);
+    GtkWidget *move_window_right = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Move Window Right", "Super+Right", G_CALLBACK(MoveWindowRight));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_window_right);
     
     GtkWidget *separator = gtk_separator_menu_item_new();
     gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), separator);
 
-    GtkWidget *move_tab_left = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Enter Fullscreen ", "Super+Page Up", G_CALLBACK(EnterFullscreen));
-    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_tab_left);
+    GtkWidget *enter_fullscreen = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Enter Fullscreen ", "Super+Page Up", G_CALLBACK(EnterFullscreen));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), enter_fullscreen);
 
-    GtkWidget *move_tab_right = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Reset Window Position", "Super+Page Down", G_CALLBACK(ResetWindowPosition));
-    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_tab_right);
+    GtkWidget *reset_window_position = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Reset Window Position", "Super+Page Down", G_CALLBACK(ResetWindowPosition));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), reset_window_position);
 
     return position_menu;
 }
