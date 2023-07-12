@@ -978,6 +978,54 @@ GtkWidget* TabsMenu() {
 
     return tabs_menu;
 }
+GtkWidget* PositionMenuHelper(const gchar *icon_path, const gchar *label_text, const gchar *shortcut_text, GCallback callback) {
+    GtkWidget *menu_item = gtk_menu_item_new();
+
+    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+
+    GtkWidget *icon = gtk_image_new_from_file(icon_path);
+    gtk_box_pack_start(GTK_BOX(box), icon, FALSE, FALSE, 0);
+
+    GtkWidget *spacer = gtk_label_new("    ");
+    gtk_box_pack_start(GTK_BOX(box), spacer, FALSE, FALSE, 0);
+
+    GtkWidget *label = gtk_label_new(label_text);
+    gtk_label_set_xalign(GTK_LABEL(label), 0.0);
+    gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
+
+    GtkWidget *shortcut = gtk_label_new(shortcut_text);
+    PangoAttrList *attr_list = pango_attr_list_new();
+    PangoAttribute *attr = pango_attr_foreground_new(128 * G_MAXUINT16 / 255, 128 * G_MAXUINT16 / 255, 128 * G_MAXUINT16 / 255);
+    pango_attr_list_insert(attr_list, attr);
+    gtk_label_set_attributes(GTK_LABEL(shortcut), attr_list);
+    gtk_box_pack_end(GTK_BOX(box), shortcut, FALSE, FALSE, 0);
+
+    gtk_container_add(GTK_CONTAINER(menu_item), box);
+    g_signal_connect(menu_item, "activate", callback, NULL);
+
+    return menu_item;
+}
+
+GtkWidget* PositionMenu() {
+    GtkWidget *position_menu = gtk_menu_new();
+
+    GtkWidget *previous_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-previous.svg", "Move Window Left", "Super+Left", G_CALLBACK(PreviousTab));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), previous_tab);
+
+    GtkWidget *next_tab = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-next.svg", "Move Window Right", "Super+Right", G_CALLBACK(NextTab));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), next_tab);
+    
+    GtkWidget *separator = gtk_separator_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), separator);
+
+    GtkWidget *move_tab_left = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-up.svg", "Enter Fullscreen ", "Super+Page Up", G_CALLBACK(MoveTabLeft));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_tab_left);
+
+    GtkWidget *move_tab_right = PositionMenuHelper("/usr/share/icons/hicolor/24x24/apps/go-down.svg", "Reset Window Position", "Super+Page Down", G_CALLBACK(MoveTabRight));
+    gtk_menu_shell_append(GTK_MENU_SHELL(position_menu), move_tab_right);
+
+    return position_menu;
+}
 
 void AboutWindow(GtkWindow* parent) {
     GtkAboutDialog* about_dialog = GTK_ABOUT_DIALOG(gtk_about_dialog_new());
@@ -1069,6 +1117,12 @@ GtkWidget* CreateMenu() {
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(tabs_menu_item), tabs_menu);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), tabs_menu_item);
 
+
+    GtkWidget *position_menu_item = gtk_menu_item_new_with_label("Position");
+    GtkWidget *position_menu = PositionMenu();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(position_menu_item), position_menu);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), position_menu_item);
+    
     GtkWidget *help_menu_item = gtk_menu_item_new_with_label("Help");
     GtkWidget *help_menu = HelpMenu();
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_menu_item), help_menu);
