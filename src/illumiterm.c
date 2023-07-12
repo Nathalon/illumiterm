@@ -18,33 +18,33 @@
 #include <vte/vte.h>
 #include <gtk/gtk.h>
 
-static const gchar* GetNewWindowTitle(VteTerminal* terminal) {
+const gchar* GetNewWindowTitle(VteTerminal* terminal) {
     return vte_terminal_get_window_title(terminal);
 }
 
-static void SetWindowTitle(GtkWidget* window, const gchar* newTitle) {
+void SetWindowTitle(GtkWidget* window, const gchar* newTitle) {
     gtk_window_set_title(GTK_WINDOW(window), newTitle);
 }
 
-static void WindowTitleChanged(GtkWidget* widget, gpointer window) {
+void WindowTitleChanged(GtkWidget* widget, gpointer window) {
     const gchar* new_title = GetNewWindowTitle(VTE_TERMINAL(widget));
     SetWindowTitle(GTK_WIDGET(window), new_title);
 }
 
-static void SetExitStatus(GApplicationCommandLine* cli, gint status) {
+void SetExitStatus(GApplicationCommandLine* cli, gint status) {
     if (cli != NULL) {
         g_application_command_line_set_exit_status(cli, status);
         g_object_unref(cli);
     }
 }
 
-static void DestroyWindow(GtkWidget* widget, gpointer data) {
+void DestroyWindow(GtkWidget* widget, gpointer data) {
     if (widget != NULL) {
         gtk_widget_destroy(widget);
     }
 }
 
-static void DestroyAndQuit(GtkWidget* window, gint status) {
+void DestroyAndQuit(GtkWidget* window, gint status) {
     GApplicationCommandLine* cli = g_object_get_data(G_OBJECT(window), "cli");
     if (cli != NULL) {
         SetExitStatus(cli, status);
@@ -52,17 +52,17 @@ static void DestroyAndQuit(GtkWidget* window, gint status) {
     DestroyWindow(window, NULL);
 }
 
-static void HandleChildExit(GtkWidget* window, gint status) {
+void HandleChildExit(GtkWidget* window, gint status) {
     DestroyAndQuit(window, status);
 }
 
-static gboolean ChildExited(VteTerminal* term, gint status, gpointer data) {
+gboolean ChildExited(VteTerminal* term, gint status, gpointer data) {
     GtkWidget* window = GTK_WIDGET(data);
     HandleChildExit(window, status);
     return TRUE;
 }
 
-static void NewWindow(GtkMenuItem *menuitem, gpointer user_data) {
+void NewWindow(void) {
     GError *error = NULL;
     gchar *argv[] = {"illumiterm", NULL};
 
@@ -73,23 +73,23 @@ static void NewWindow(GtkMenuItem *menuitem, gpointer user_data) {
     }
 }
 
-static void NewTab(GtkMenuItem *menuitem, gpointer user_data) {
+void NewTab(void) {
     g_print("NewTab\n");
 }
 
-static void Copy(GtkMenuItem *menuitem, gpointer user_data) {
+void Copy(void) {
     g_print("Copy\n");
 }
 
-static void Paste(GtkMenuItem *menuitem, gpointer user_data) {
+void Paste(void) {
     g_print("Paste\n");
 }
 
-static void ClearScrollback(GtkMenuItem *menuitem, gpointer user_data) {
+void ClearScrollback(void) {
     g_print("ClearScrollback\n");
 }
 
-static void NameTab(GtkMenuItem *menuitem, gpointer user_data) {
+void NameTab(void) {
     GtkWidget *dialog = gtk_dialog_new_with_buttons("Name Tab", NULL, GTK_DIALOG_MODAL, "Cancel", GTK_RESPONSE_CANCEL, "OK", GTK_RESPONSE_OK, NULL);
 
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
@@ -136,35 +136,35 @@ static void NameTab(GtkMenuItem *menuitem, gpointer user_data) {
     gtk_widget_destroy(dialog);
 }
 
-static void PreviousTab(GtkMenuItem *menuitem, gpointer user_data) {
+void PreviousTab(void) {
     g_print("PreviousTab\n");
 }
 
-static void NextTab(GtkMenuItem *menuitem, gpointer user_data) {
+void NextTab(void) {
     g_print("NextTab\n");
 }
 
-static void MoveTabLeft(GtkMenuItem *menuitem, gpointer user_data) {
+void MoveTabLeft(void) {
     g_print("MoveTabLeft\n");
 }
 
-static void MoveTabRight(GtkMenuItem *menuitem, gpointer user_data) {
+void MoveTabRight(void) {
     g_print("MoveTabRight\n");
 }
 
-static void CloseTab(GtkMenuItem *menuitem, gpointer user_data) {
+void CloseTab(void) {
     g_print("CloseTab\n");
 }
 
-static int NumTabs = 0;
+int NumTabs = 0;
 
-static void UpdateNumTabs(GtkWidget* TabContainer) {
+void UpdateNumTabs(GtkWidget* TabContainer) {
     GList* children = gtk_container_get_children(GTK_CONTAINER(TabContainer));
     NumTabs = g_list_length(children);
     g_list_free(children);
 }
 
-static gboolean ConfirmExit(GtkWidget* widget, GdkEvent* event, gpointer data) {
+gboolean ConfirmExit(GtkWidget* widget, GdkEvent* event, gpointer data) {
     GtkWidget* TabContainer = GTK_WIDGET(data);
     UpdateNumTabs(TabContainer);
 
@@ -245,7 +245,7 @@ GtkWidget* ContextMenu() {
     return menu;
 }
 
-static gboolean ButtonPressEvent(GtkWidget *widget, GdkEventButton *event, gpointer data) {
+gboolean ButtonPressEvent(GtkWidget *widget, GdkEventButton *event, gpointer data) {
     if (event->button != GDK_BUTTON_SECONDARY) {
         return FALSE;
     }
@@ -255,7 +255,7 @@ static gboolean ButtonPressEvent(GtkWidget *widget, GdkEventButton *event, gpoin
     return TRUE;
 }
 
-static void ChildReady(VteTerminal* terminal, GPid pid, GError* error, gpointer user_data) {
+void ChildReady(VteTerminal* terminal, GPid pid, GError* error, gpointer user_data) {
     if (terminal == NULL) {
         return;
     }
@@ -266,7 +266,7 @@ static void ChildReady(VteTerminal* terminal, GPid pid, GError* error, gpointer 
     }
 }
 
-static gchar** GetEnviroment(GApplicationCommandLine* cli) {
+gchar** GetEnviroment(GApplicationCommandLine* cli) {
     const gchar* const* environment = g_application_command_line_get_environ(cli);
 
     guint num_variables = g_strv_length((gchar**)environment);
@@ -278,18 +278,18 @@ static gchar** GetEnviroment(GApplicationCommandLine* cli) {
     return result;
 }
 
-static void ConnectSignal(GtkWidget* widget, const char* signal_name, GCallback callback, gpointer user_data) {
+void ConnectSignal(GtkWidget* widget, const char* signal_name, GCallback callback, gpointer user_data) {
     g_signal_connect(widget, signal_name, callback, user_data);
 }
 
-static void ConnectVteSignals(GtkWidget* widget, GtkWidget* window) {
+void ConnectVteSignals(GtkWidget* widget, GtkWidget* window) {
     ConnectSignal(widget, "child-exited", G_CALLBACK(ChildExited), window);
     ConnectSignal(widget, "window-title-changed", G_CALLBACK(WindowTitleChanged), window);
     ConnectSignal(widget, "button-press-event", G_CALLBACK(ButtonPressEvent), NULL);
     ConnectSignal(window, "delete-event", G_CALLBACK(ConfirmExit), NULL);
 }
 
-static void SpawnVteTerminal(GApplicationCommandLine* cli, GtkWidget* window, GtkWidget* widget) {
+void SpawnVteTerminal(GApplicationCommandLine* cli, GtkWidget* window, GtkWidget* widget) {
     GVariantDict* options = g_application_command_line_get_options_dict(cli);
     const gchar* command = NULL;
     g_variant_dict_lookup(options, "cmd", "&s", &command);
@@ -329,7 +329,7 @@ static void SpawnVteTerminal(GApplicationCommandLine* cli, GtkWidget* window, Gt
     g_free(cmdline);
 }
 
-static void CloseWindow(GtkMenuItem *menuitem, gpointer user_data) {
+void CloseWindow(void) {
     exit(0);
 }
 
@@ -384,29 +384,29 @@ GtkWidget* FileMenu() {
     return file_menu;
 }
 
-static void ZoomIn(GtkMenuItem *menuitem, gpointer user_data) {
+void ZoomIn(void) {
     g_print("ZoomIn\n");
 }
 
-static void ZoomOut(GtkMenuItem *menuitem, gpointer user_data) {
+void ZoomOut(void) {
     g_print("ZoomOut\n");
 }
 
-static void ZoomReset(GtkMenuItem *menuitem, gpointer user_data) {
+void ZoomReset(void) {
     g_print("ZoomReset\n");
 }
 
-static void palette_selected(GtkComboBoxText *palette_combo_box, gpointer user_data)
+void palette_selected(void)
 {
 
 }
 
-static void color_selected(GtkColorButton *button, gpointer user_data)
+void color_selected(void)
 {
 
 }
 
-static void OpenFontDialog(GtkWidget *widget, gpointer user_data) {
+void OpenFontDialog(GtkWidget *widget, gpointer user_data) {
     GtkComboBoxText *font_combo_box = GTK_COMBO_BOX_TEXT(user_data);
 
     GtkWidget *dialog = gtk_font_chooser_dialog_new("Select Font", GTK_WINDOW(gtk_widget_get_toplevel(widget)));
@@ -433,7 +433,7 @@ static void OpenFontDialog(GtkWidget *widget, gpointer user_data) {
     gtk_widget_destroy(dialog);
 }
 
-static void StyleTab(GtkNotebook *notebook)
+void StyleTab(GtkNotebook *notebook)
 {
     GtkWidget *style_tab = gtk_label_new("Style");
     GtkWidget *style_grid = gtk_grid_new();
@@ -595,7 +595,7 @@ static void StyleTab(GtkNotebook *notebook)
     gtk_notebook_append_page(notebook, style_grid, style_tab);
 }
 
-static void DisplayTab(GtkNotebook *notebook) {
+void DisplayTab(GtkNotebook *notebook) {
     GtkWidget *display_tab = gtk_label_new("Display");
     GtkWidget *display_grid = gtk_grid_new();
     gtk_grid_set_row_spacing(GTK_GRID(display_grid), 10);
@@ -698,7 +698,7 @@ static void DisplayTab(GtkNotebook *notebook) {
     gtk_notebook_append_page(notebook, display_grid, display_tab);
 }
 
-static void AdvancedTab(GtkNotebook *notebook) {
+void AdvancedTab(GtkNotebook *notebook) {
     GtkWidget *advanced_tab = gtk_label_new("Advanced");
     GtkWidget *advanced_grid = gtk_grid_new();
     gtk_grid_set_row_spacing(GTK_GRID(advanced_grid), 10);
@@ -735,7 +735,7 @@ static void AdvancedTab(GtkNotebook *notebook) {
 }
 
 
-static void ShortcutsTab(GtkNotebook *notebook) {
+void ShortcutsTab(GtkNotebook *notebook) {
     GtkWidget *shortcuts_tab = gtk_label_new("Shortcuts");
 
     GtkWidget *shortcuts_grid = gtk_grid_new();
@@ -807,11 +807,11 @@ static void ShortcutsTab(GtkNotebook *notebook) {
     gtk_notebook_append_page(notebook, shortcuts_grid, shortcuts_tab);
 }
 
-static void OkButton(GtkButton *button, gpointer user_data) {
+void OkButton(void) {
     g_print("OK button clicked!\n");
 }
 
-static void Preferences(GtkMenuItem *menu_item, gpointer user_data)
+void Preferences(GtkMenuItem *menu_item, gpointer user_data)
 {
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Preferences");
@@ -979,7 +979,7 @@ GtkWidget* TabsMenu() {
     return tabs_menu;
 }
 
-static void AboutWindow(GtkWindow* parent) {
+void AboutWindow(GtkWindow* parent) {
     GtkAboutDialog* about_dialog = GTK_ABOUT_DIALOG(gtk_about_dialog_new());
     GdkPixbuf* icon = gdk_pixbuf_new_from_file("/usr/share/icons/hicolor/48x48/apps/illumiterm.png", NULL);
     gtk_window_set_icon(GTK_WINDOW(about_dialog), icon);
@@ -1016,7 +1016,7 @@ static void AboutWindow(GtkWindow* parent) {
     gtk_widget_destroy(GTK_WIDGET(about_dialog));
 }
 
-static void About(GtkMenuItem* menuitem, gpointer user_data) {
+void About(GtkMenuItem* menuitem, gpointer user_data) {
     GtkWindow* window = GTK_WINDOW(user_data);
     AboutWindow(window);
 }
@@ -1077,7 +1077,7 @@ GtkWidget* CreateMenu() {
     return menu_bar;
 }
 
-static void SetNotebookShowTabs(GtkWidget* notebook) {
+void SetNotebookShowTabs(GtkWidget* notebook) {
     gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
 }
 
@@ -1116,7 +1116,7 @@ GtkWidget* CreateWindow(GtkWidget* menu_bar, GtkWidget* notebook) {
     return window;
 }
 
-static void CommandLine(GApplication *application, GApplicationCommandLine *cli, gpointer data) {
+void CommandLine(GApplication *application, GApplicationCommandLine *cli, gpointer data) {
     GtkWidget *widget = vte_terminal_new();
     GtkWidget *menu_bar = CreateMenu();
     GtkWidget *notebook = CreateNotebook(widget);
@@ -1130,11 +1130,11 @@ static void CommandLine(GApplication *application, GApplicationCommandLine *cli,
     SpawnVteTerminal(cli, window, widget);
 }
 
-static void ConnectSignals(GtkApplication *application) {
+void ConnectSignals(GtkApplication *application) {
     g_signal_connect(application, "command-line", G_CALLBACK(CommandLine), NULL);
 }
 
-static int RunApp(int argc, char **argv) {
+int RunApp(int argc, char **argv) {
     GtkApplication *application = gtk_application_new("slck.illumiterm", G_APPLICATION_HANDLES_COMMAND_LINE | G_APPLICATION_SEND_ENVIRONMENT); 
 
     ConnectSignals(application);
@@ -1152,4 +1152,4 @@ int main(int argc, char **argv) {
     return status;
 }
 
-// gcc -O2 -Wall $(pkg-config --cflags vte-2.91) $(pkg-config --cflags gtk+-3.0) illumiterm.c -o illumiterm $(pkg-config --libs vte-2.91) $(pkg-config --libs gtk+-3.0)
+// gcc -O2 -Wall $(pkg-config --cflags vte-2.91) $(pkg-config --cflags gtk+-3.0) illumiterm.c -o illumiterm $(pkg-config --libs vte-2.91) $(pkg-config --libs gtk+-3.0)S
