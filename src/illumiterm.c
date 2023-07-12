@@ -759,10 +759,16 @@ void ShortcutsTab(GtkNotebook *notebook) {
         gtk_label_new("Next Tab:"),
         gtk_label_new("Move Tab Left:"),
         gtk_label_new("Move Tab Right:"),
-        
+        gtk_label_new("Move Window Left:"),
+        gtk_label_new("Move Window Right:"),
+        gtk_label_new("Enter Fullscreen:"),
+        gtk_label_new("Reset Window Position:"),      
     };
     
     GtkWidget *shortcut_entries[] = {
+        gtk_entry_new(),
+        gtk_entry_new(),
+        gtk_entry_new(),
         gtk_entry_new(),
         gtk_entry_new(),
         gtk_entry_new(),
@@ -795,6 +801,10 @@ void ShortcutsTab(GtkNotebook *notebook) {
         "Shift+Ctrl+Right",
         "Shift+Ctrl+Page Up",
         "Shift+Ctrl+Page Down",
+        "Super+Page Left",  
+        "Super+Page Right",  
+        "Super+Page Up",  
+        "Super+Page Down",  
 
     };
 
