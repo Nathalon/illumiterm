@@ -1154,10 +1154,9 @@ GtkWidget* CreateMenu() {
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_menu_item), help_menu);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), help_menu_item);
     
-
     GtkWidget *search_icon_item = gtk_menu_item_new();
     GtkWidget *search_icon_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    GtkWidget *search_icon = gtk_image_new_from_file("/path/to/search_icon.png");
+    GtkWidget *search_icon = gtk_image_new_from_file("/usr/share/icons/hicolor/16x16/apps/search.png");
     gtk_box_pack_start(GTK_BOX(search_icon_box), search_icon, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(search_icon_box), gtk_label_new(""), FALSE, FALSE, 0);
     gtk_container_add(GTK_CONTAINER(search_icon_item), search_icon_box);
