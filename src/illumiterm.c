@@ -1158,7 +1158,7 @@ GtkWidget* CreateMenu() {
     
     GtkWidget *search_icon_item = gtk_menu_item_new();
     GtkWidget *search_icon_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    GtkWidget *search_icon = gtk_image_new_from_file("/usr/share/icons/hicolor/16x16/apps/search.png");
+    GtkWidget *search_icon = gtk_image_new_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-system-search-symbolic.svg");
     
     gtk_box_pack_start(GTK_BOX(search_icon_box), search_icon, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(search_icon_box), gtk_label_new(""), FALSE, FALSE, 0);
