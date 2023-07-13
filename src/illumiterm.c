@@ -1123,7 +1123,9 @@ GtkWidget* HelpMenu() {
 
     return help_menu;
 }
-
+void SearchIcon(void) {
+    g_print("SearchIcon\n");
+}
 GtkWidget* CreateMenu() {
     GtkWidget *menu_bar = gtk_menu_bar_new();
 
@@ -1151,6 +1153,16 @@ GtkWidget* CreateMenu() {
     GtkWidget *help_menu = HelpMenu();
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_menu_item), help_menu);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), help_menu_item);
+    
+
+    GtkWidget *search_icon_item = gtk_menu_item_new();
+    GtkWidget *search_icon_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    GtkWidget *search_icon = gtk_image_new_from_file("/path/to/search_icon.png");
+    gtk_box_pack_start(GTK_BOX(search_icon_box), search_icon, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(search_icon_box), gtk_label_new(""), FALSE, FALSE, 0);
+    gtk_container_add(GTK_CONTAINER(search_icon_item), search_icon_box);
+    g_signal_connect(G_OBJECT(search_icon_item), "activate", G_CALLBACK(SearchIcon), NULL);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), search_icon_item);
 
     return menu_bar;
 }
