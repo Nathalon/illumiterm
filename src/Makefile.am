@@ -28,7 +28,7 @@ install-data-local:
 	chmod 644 $(DESTDIR)/usr/share/applications/illumiterm.desktop
 	$(INSTALL_DATA) $(top_srcdir)/icons/illumiterm.png $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/illumiterm.png
 	$(INSTALL_DATA) $(top_srcdir)/icons/about.png $(DESTDIR)/usr/share/icons/hicolor/96x96/apps/about.png
-	$(INSTALL_DATA) $(top_srcdir)/icons/search.png $(DESTDIR)/usr/share/icons/hicolor/16x16/apps/search.png
+	$(INSTALL_DATA) $(top_srcdir)/icons/preferences-system-search-symbolic.svg $(DESTDIR)/usr/share/icons/hicolor/16x16/apps/preferences-system-search-symbolic.svg
 	$(INSTALL_DATA) $(top_srcdir)/icons/window-new.svg $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/window-new.svg
 	$(INSTALL_DATA) $(top_srcdir)/icons/tab-new.svg $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/tab-new.svg
 	$(INSTALL_DATA) $(top_srcdir)/icons/tab-close.svg $(DESTDIR)/usr/share/icons/hicolor/24x24/apps/tab-close.svg
