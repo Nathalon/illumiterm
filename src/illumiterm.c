@@ -1160,11 +1160,11 @@ GtkWidget* CreateMenu() {
     GtkWidget *search_icon_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     GtkWidget *search_icon = gtk_image_new_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-system-search-symbolic.svg");
     
-    gtk_box_pack_start(GTK_BOX(search_icon_box), search_icon, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(search_icon_box), gtk_label_new(""), FALSE, FALSE, 0);
-    gtk_container_add(GTK_CONTAINER(search_icon_item), search_icon_box);
-    g_signal_connect(G_OBJECT(search_icon_item), "activate", G_CALLBACK(SearchIcon), NULL);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), search_icon_item);
+	gtk_box_pack_start(GTK_BOX(search_icon_box), search_icon, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(search_icon_box), gtk_label_new(""), FALSE, FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(search_icon_item), search_icon_box);
+	g_signal_connect(G_OBJECT(search_icon_item), "button-press-event", G_CALLBACK(SearchIcon), NULL);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), search_icon_item);
 
     return menu_bar;
 }
