@@ -1151,11 +1151,6 @@ GtkWidget* CreateMenu() {
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(position_menu_item), position_menu);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), position_menu_item);
     
-    GtkWidget *help_menu_item = gtk_menu_item_new_with_label("Help");
-    GtkWidget *help_menu = HelpMenu();
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_menu_item), help_menu);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), help_menu_item);
-    
 	GtkWidget *search_icon_item = gtk_menu_item_new();
 	GtkWidget *search_icon_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	GtkWidget *search_icon = gtk_image_new_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-system-search-symbolic.svg");
@@ -1169,8 +1164,12 @@ GtkWidget* CreateMenu() {
 
 	GtkWidget *right_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
-	gtk_box_pack_start(GTK_BOX(right_box), separator, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(right_box), search_icon_item, FALSE, FALSE, 0);
+	GtkWidget *spacer_label = gtk_label_new(NULL);
+	gtk_widget_set_hexpand(spacer_label, FALSE); 
+	gtk_box_pack_end(GTK_BOX(right_box), spacer_label, FALSE, FALSE, 5); 
+
+	gtk_box_pack_end(GTK_BOX(right_box), separator, FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(right_box), search_icon_item, FALSE, FALSE, 0);
 
 	GtkWidget *main_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_pack_start(GTK_BOX(main_box), menu_bar, TRUE, TRUE, 0);
