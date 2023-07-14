@@ -1156,18 +1156,28 @@ GtkWidget* CreateMenu() {
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_menu_item), help_menu);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), help_menu_item);
     
-    GtkWidget *search_icon_item = gtk_menu_item_new();
-    GtkWidget *search_icon_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    GtkWidget *search_icon = gtk_image_new_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-system-search-symbolic.svg");
-    
+	GtkWidget *search_icon_item = gtk_menu_item_new();
+	GtkWidget *search_icon_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	GtkWidget *search_icon = gtk_image_new_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-system-search-symbolic.svg");
+
 	gtk_box_pack_start(GTK_BOX(search_icon_box), search_icon, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(search_icon_box), gtk_label_new(""), FALSE, FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(search_icon_item), search_icon_box);
 	g_signal_connect(G_OBJECT(search_icon_item), "button-press-event", G_CALLBACK(SearchIcon), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), search_icon_item);
 
-    return menu_bar;
-}
+	GtkWidget *separator = gtk_separator_menu_item_new();
+
+	GtkWidget *right_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+
+	gtk_box_pack_start(GTK_BOX(right_box), separator, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(right_box), search_icon_item, FALSE, FALSE, 0);
+
+	GtkWidget *main_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_box_pack_start(GTK_BOX(main_box), menu_bar, TRUE, TRUE, 0);
+	gtk_box_pack_end(GTK_BOX(main_box), right_box, FALSE, FALSE, 0);
+
+	return main_box;
+}   
 
 void SetNotebookShowTabs(GtkWidget* notebook) {
     gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
